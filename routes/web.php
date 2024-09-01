@@ -11,7 +11,7 @@ Route::redirect('/', '/dashboard');
 Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('/dashboard', [ProjectController::class, 'index'])->name('dashboard');
-        Route::get('/{project}', [ProjectController::class, 'show'])->name('projects.show');
+        Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 
         Route::apiResource('projects.tasks', TaskController::class)
             ->shallow()
