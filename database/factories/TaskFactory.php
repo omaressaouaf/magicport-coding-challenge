@@ -24,7 +24,7 @@ class TaskFactory extends Factory
 
         return [
             'name' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(),
+            'description' => $this->faker->paragraph(1),
             'project_id' => ProjectFactory::new(),
             'status' => $statuses[array_rand($statuses)],
         ];
