@@ -35,14 +35,15 @@
       </div>
    </div>
 
-   <div class="pb-12 mt-5">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+   <div class="pb-12 mt-5" x-data="{ tasks: {{ $tasks }} }">
+      <div x-data="tasksComponent" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                <h2 class="mb-5 text-xl font-semibold underline">Associated Tasks</h2>
-               <div x-data="{ tasks: {{ $tasks }} }"
+               <div
                   class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                  <div class="pb-4 bg-white dark:bg-gray-900">
+                  <div
+                     class="pb-4 bg-white dark:bg-gray-900">
                      <div class="relative mt-1">
                         <form action=""
                            method="get"
@@ -120,8 +121,8 @@
                                  class="px-6 py-4">
                               </td>
                               <td class="px-6 py-4">
-                                 <a href="{{ route('projects.show', ['project' => $project]) }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Show</a>
+                                 <button @click="deleteTask(task.id)"
+                                    class="font-medium text-red-500 underline dark:text-blue-500">Delete</a>
                               </td>
                            </tr>
                         </template>
