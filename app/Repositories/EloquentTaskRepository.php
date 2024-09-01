@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Repositories\Contracts\TaskRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class EloquentTaskRepository implements TaskRepository
@@ -16,7 +17,12 @@ class EloquentTaskRepository implements TaskRepository
         /**
          * @var Task $task
          */
-        $task = Task::query()->create(array_merge($data, ['project_id' => $project->id]));
+        $task = Task::query()->create([
+            'name' => Arr::get($data, 'name'),
+            'description' => Arr::get($data, 'description'),
+            'status' => TaskStatus::TODO,
+            'project_id' => $project->id,
+        ]);
 
         return $task;
     }
@@ -40,7 +46,8 @@ class EloquentTaskRepository implements TaskRepository
     {
         return $project
             ->tasks()
-            ->when($status, fn (Builder $query) => $query->where('status', $status))
+            ->when($status, fn(Builder $query) => $query->where('status', $status))
+            ->latest()
             ->get();
     }
 }
