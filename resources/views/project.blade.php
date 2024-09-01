@@ -49,12 +49,13 @@
                            class="flex items-center gap-2">
                            <select name="status"
                               class="bg-gray-50 w-1/5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                              <option selected
+                              <option @selected(!request('status'))
                                  value>Choose status</option>
                               @foreach (TaskStatus::cases() as $case)
                                  <option value="{{ $case->value }}"
-                                    selected="{{ request('status') === $case->value }}">
-                                    {{ strtoupper($case->value) }}</option>
+                                    @selected(request('status') === $case->value)>
+                                    {{ strtoupper($case->value) }}
+                                 </option>
                               @endforeach
                            </select>
                            <button type="submit"
