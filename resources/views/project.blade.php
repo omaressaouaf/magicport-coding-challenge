@@ -47,26 +47,26 @@
                         @submit.prevent="handleSubmit">
                         <div class="mb-5">
                            <label for="name"
-                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
+                              class="block mb-2 text-sm font-medium text-gray-900">Task
                               name</label>
                            <input x-model="form.name"
-                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5:ring-blue-500:border-blue-500"
                               placeholder="Task name"
                               required />
                         </div>
                         <div class="mb-5">
                            <label for="description"
-                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                              class="block mb-2 text-sm font-medium text-gray-900">Description</label>
                            <textarea x-model="form.description"
                               id="description"
                               placeholder="Write your description..."
                               cols="30"
                               rows="2"
-                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5:ring-blue-500:border-blue-500"></textarea>
                         </div>
                         <button x-text="currentTask ? 'Update' : 'Create'"
                            type="submit"
-                           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center:bg-blue-700:ring-blue-800"
                            x-te>
                         </button>
                      </form>
@@ -81,13 +81,13 @@
                   <div class="p-6 text-gray-900">
                      <h2 class="mb-5 text-xl font-semibold underline">Associated Tasks</h2>
                      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <div class="pb-4 bg-white dark:bg-gray-900">
+                        <div class="pb-4 bg-white">
                            <div class="relative mt-1">
                               <form action=""
                                  method="get"
                                  class="flex items-center gap-2">
                                  <select name="status"
-                                    class="bg-gray-50 w-1/5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    class="bg-gray-50 w-1/5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5:ring-blue-500:border-blue-500">
                                     <option @selected(!request('status'))
                                        value>Choose status</option>
                                     @foreach (TaskStatus::cases() as $case)
@@ -102,10 +102,9 @@
                               </form>
                            </div>
                         </div>
-                        <table
-                           class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                            <thead
-                              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                              class="text-xs text-gray-700 uppercase bg-gray-50">
                               <tr>
                                  <th scope="col"
                                     class="px-6 py-3">
@@ -132,11 +131,10 @@
                            <tbody>
                               <template x-for="task in tasks"
                                  :key="task.id">
-                                 <tr
-                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <tr class="bg-white border-b   hover:bg-gray-50 :bg-gray-600">
                                     <th x-text="task.name"
                                        scope="row"
-                                       class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                       class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                     </th>
                                     <td x-text="task.description"
                                        class="px-6 py-4">
@@ -160,7 +158,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                        <button @click="deleteTask(task.id)"
-                                          class="font-medium text-red-500 underline dark:text-blue-500">Delete</a>
+                                          class="font-medium text-red-500 underline ">Delete</a>
                                     </td>
                                  </tr>
                               </template>
