@@ -11,7 +11,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected array $guarded = [];
+    protected $guarded = [];
 
     protected function casts(): array
     {

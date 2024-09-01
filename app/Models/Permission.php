@@ -10,7 +10,7 @@ class Permission extends Model
 {
     use HasFactory;
 
-    protected array $guarded = [];
+    protected $guarded = [];
 
     public function roles(): BelongsToMany
     {
