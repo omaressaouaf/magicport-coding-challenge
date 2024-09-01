@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Models\Permission;
 use App\Models\User;
+use App\Repositories\Contracts\ProjectRepository;
+use App\Repositories\Contracts\TaskRepository;
+use App\Repositories\EloquentProjectRepository;
+use App\Repositories\EloquentTaskRepository;
 use App\Services\PermissionService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
@@ -11,17 +15,12 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        //
+        $this->app->instance(ProjectRepository::class, EloquentProjectRepository::class);
+        $this->app->instance(TaskRepository::class, EloquentTaskRepository::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $permissionsNames = Cache::rememberForever('permissions', fn() => Permission::all()->pluck('name'));
