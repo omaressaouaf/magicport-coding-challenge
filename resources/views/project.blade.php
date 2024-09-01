@@ -45,24 +45,39 @@
                         class="mb-5 text-xl font-semibold underline"></h2>
                      <form class="max-w-sm"
                         @submit.prevent="handleSubmit">
-                        <div class="mb-5">
-                           <label for="name"
-                              class="block mb-2 text-sm font-medium text-gray-900">Task
-                              name</label>
-                           <input x-model="form.name"
-                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5:ring-blue-500:border-blue-500"
-                              placeholder="Task name"
-                              required />
+                        <div x-show="currentTaskStatusIsBeingEdited"
+                           class="mb-5">
+                           <select x-model="form.status"
+                              class="bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5:ring-blue-500:border-blue-500">
+                              <option value>Choose status</option>
+                              @foreach (TaskStatus::cases() as $case)
+                                 <option value="{{ $case->value }}"
+                                    x-bind:selected="form.status === '{{$case->value}}'">
+                                    {{ strtoupper($case->value) }}
+                                 </option>
+                              @endforeach
+                           </select>
                         </div>
-                        <div class="mb-5">
-                           <label for="description"
-                              class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                           <textarea x-model="form.description"
-                              id="description"
-                              placeholder="Write your description..."
-                              cols="30"
-                              rows="2"
-                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5:ring-blue-500:border-blue-500"></textarea>
+                        <div x-show="!currentTaskStatusIsBeingEdited">
+                           <div class="mb-5">
+                              <label for="name"
+                                 class="block mb-2 text-sm font-medium text-gray-900">Task
+                                 name</label>
+                              <input x-model="form.name"
+                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5:ring-blue-500:border-blue-500"
+                                 placeholder="Task name"
+                                 required />
+                           </div>
+                           <div class="mb-5">
+                              <label for="description"
+                                 class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+                              <textarea x-model="form.description"
+                                 id="description"
+                                 placeholder="Write your description..."
+                                 cols="30"
+                                 rows="2"
+                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5:ring-blue-500:border-blue-500"></textarea>
+                           </div>
                         </div>
                         <button x-text="currentTask ? 'Update' : 'Create'"
                            type="submit"
@@ -103,8 +118,7 @@
                            </div>
                         </div>
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                           <thead
-                              class="text-xs text-gray-700 uppercase bg-gray-50">
+                           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                               <tr>
                                  <th scope="col"
                                     class="px-6 py-3">
@@ -157,10 +171,13 @@
                                        class="px-6 py-4">
                                     </td>
                                     <td class="px-6 py-4 flex items-center gap-2">
-                                       <button @click="setCurrentTask(task)"
-                                          class="font-medium text-green-500 underline ">Edit</a>
-                                          <button @click="deleteTask(task.id)"
-                                          class="font-medium text-red-500 underline ">Delete</a>
+                                       <button @click="editCurrentTaskStatus(task)"
+                                          class="font-medium text-blue-500 underline">Change
+                                          Status</a>
+                                          <button @click="setCurrentTask(task)"
+                                             class="font-medium text-green-500 underline ">Edit</a>
+                                             <button @click="deleteTask(task.id)"
+                                                class="font-medium text-red-500 underline ">Delete</a>
                                     </td>
                                  </tr>
                               </template>

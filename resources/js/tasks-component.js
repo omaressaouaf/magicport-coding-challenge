@@ -2,6 +2,7 @@ import Alpine from "alpinejs";
 
 Alpine.data("tasksComponent", () => ({
     currentTask: null,
+    currentTaskStatusIsBeingEdited: false,
     form: {
         name: null,
         description: null,
@@ -11,9 +12,14 @@ Alpine.data("tasksComponent", () => ({
     setCurrentTask(task) {
         this.currentTask = task;
 
-        this.form.name = this.currentTask.name;
-        this.form.description = this.currentTask.description;
-        this.form.status = this.currentTask.status;
+        this.form.name = this.currentTask?.name;
+        this.form.description = this.currentTask?.description;
+        this.form.status = this.currentTask?.status;
+    },
+    editCurrentTaskStatus(task) {
+        this.setCurrentTask(task);
+
+        this.currentTaskStatusIsBeingEdited = true;
     },
     resetForm() {
         this.form = {
@@ -64,10 +70,32 @@ Alpine.data("tasksComponent", () => ({
             loopTask.id === task.id ? task : loopTask
         );
     },
+    async updateTaskStatus() {
+        let response = await this.makeRequest(
+            "PATCH",
+            `/tasks/update-status/${this.currentTask.id}`,
+            {
+                status: this.form.status,
+            }
+        );
+
+        const task = await response.json();
+
+        this.tasks = this.tasks.map((loopTask) =>
+            loopTask.id === task.id ? task : loopTask
+        );
+        this.currentTaskStatusIsBeingEdited = false;
+    },
     async handleSubmit() {
-        if (this.currentTask) {
+        if (this.currentTask && !this.currentTaskStatusIsBeingEdited) {
             this.updateTask();
-        } else {
+        }
+
+        if (this.currentTask && this.currentTaskStatusIsBeingEdited) {
+            this.updateTaskStatus();
+        }
+
+        if (!this.currentTask) {
             this.createTask();
         }
 
