@@ -6,6 +6,7 @@ use App\Enums\TaskStatus;
 use App\Models\Project;
 use App\Models\Task;
 use App\Repositories\Contracts\TaskRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class EloquentTaskRepository implements TaskRepository
@@ -25,9 +26,9 @@ class EloquentTaskRepository implements TaskRepository
         return $task->update($data) != 0;
     }
 
-    public function updateStatus(Task $task, TaskStatus $taskStatus): bool
+    public function updateStatus(Task $task, TaskStatus $status): bool
     {
-        return $task->update(['status' => $taskStatus]) != 0;
+        return $task->update(['status' => $status]) != 0;
     }
 
     public function delete(Task $task): bool
@@ -35,8 +36,11 @@ class EloquentTaskRepository implements TaskRepository
         return $task->delete() != 0;
     }
 
-    public function get(): Collection
+    public function get(Project $project, ?TaskStatus $status = null): Collection
     {
-        return Task::query()->get();
+        return $project
+            ->tasks()
+            ->when($status, fn(Builder $query) => $query->where('status', $status))
+            ->get();
     }
 }

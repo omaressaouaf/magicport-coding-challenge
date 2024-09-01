@@ -13,9 +13,9 @@ interface TaskRepository
 
     public function update(Task $task, array $data): bool;
 
-    public function updateStatus(Task $task, TaskStatus $taskStatus): bool;
+    public function updateStatus(Task $task, TaskStatus $status): bool;
 
     public function delete(Task $task): bool;
 
-    public function get(): Collection;
+    public function get(Project $project, ?TaskStatus $status = null): Collection;
 }

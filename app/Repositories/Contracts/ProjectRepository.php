@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface ProjectRepository
 {
-    public function get(): Collection;
+    public function get(?string $name = null): Collection;
 }

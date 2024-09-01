@@ -20,11 +20,6 @@ class TaskController extends Controller
         return new JsonResponse($task, Response::HTTP_CREATED);
     }
 
-    public function show(Task $task)
-    {
-        return new JsonResponse($task);
-    }
-
     public function update(StoreUpdateTaskRequest $request, Task $task)
     {
         $this->taskRepository->update($task, $request->validated());

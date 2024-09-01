@@ -15,7 +15,7 @@ Route::middleware(['auth', 'verified'])
 
         Route::apiResource('projects.tasks', TaskController::class)
             ->shallow()
-            ->only(['store', 'show', 'update', 'destroy']);
+            ->only(['store', 'update', 'destroy']);
         Route::patch('/tasks/update-status', UpdateTaskStatusController::class)->name('tasks.update-status');
     });
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TaskStatus;
 use App\Models\Project;
 use App\Repositories\Contracts\ProjectRepository;
+use App\Repositories\Contracts\TaskRepository;
 
 class ProjectController extends Controller
 {
@@ -11,16 +13,17 @@ class ProjectController extends Controller
     {
         return view('dashboard')->with(
             [
-                'projects' => $projectRepository->get()
+                'projects' => $projectRepository->get(request()->get('name')),
             ]
         );
     }
 
-    public function show(Project $project)
+    public function show(Project $project, TaskRepository $taskRepository)
     {
         return view('project')->with(
             [
-                'project' => $project->load('tasks')
+                'project' => $project,
+                'tasks' => $taskRepository->get($project, TaskStatus::tryFrom(request()->get('status')))
             ]
         );
     }
