@@ -14,7 +14,7 @@ class UpdateTaskStatusController extends Controller
 {
     public function __invoke(UpdateTaskStatusRequest $request, Task $task, TaskRepository $taskRepository)
     {
-        Gate::authorize('has-permission', 'update task');
+        Gate::authorize('has-permission', 'edit task');
 
         $taskRepository->updateStatus($task, TaskStatus::from($request->get('status')));
 
