@@ -55,7 +55,7 @@ Alpine.data("tasksComponent", () => ({
 
         const task = await response.json();
 
-        this.tasks.unshift(task);
+        this.tasks = [task, ...this.tasks];
     },
     async updateTask() {
         let response = await this.makeRequest(
@@ -67,13 +67,13 @@ Alpine.data("tasksComponent", () => ({
         const task = await response.json();
 
         this.tasks = this.tasks.map((loopTask) =>
-            loopTask.id === task.id ? task : loopTask
+            loopTask.id === task.id ? { ...task } : { ...loopTask }
         );
     },
     async updateTaskStatus() {
         let response = await this.makeRequest(
             "PATCH",
-            `/tasks/update-status/${this.currentTask.id}`,
+            `/tasks/${this.currentTask.id}/update-status`,
             {
                 status: this.form.status,
             }
@@ -82,9 +82,8 @@ Alpine.data("tasksComponent", () => ({
         const task = await response.json();
 
         this.tasks = this.tasks.map((loopTask) =>
-            loopTask.id === task.id ? task : loopTask
+            loopTask.id === task.id ? { ...task } : { ...loopTask }
         );
-        this.currentTaskStatusIsBeingEdited = false;
     },
     async handleSubmit() {
         if (this.currentTask && !this.currentTaskStatusIsBeingEdited) {
@@ -100,5 +99,7 @@ Alpine.data("tasksComponent", () => ({
         }
 
         this.resetForm();
+        this.currentTaskStatusIsBeingEdited = false;
+        this.currentTask = null;
     },
 }));

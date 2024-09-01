@@ -16,7 +16,7 @@ Route::middleware(['auth', 'verified'])
         Route::apiResource('projects.tasks', TaskController::class)
             ->shallow()
             ->only(['store', 'update', 'destroy']);
-        Route::patch('/tasks/update-status/{task}', UpdateTaskStatusController::class)->name('tasks.update-status');
+        Route::patch('/tasks/{task}/update-status', UpdateTaskStatusController::class)->name('tasks.update-status');
     });
 
 Route::middleware('auth')->group(function () {
