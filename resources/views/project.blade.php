@@ -156,8 +156,10 @@
                                     <td x-text="new Date(task.created_at).toLocaleString()"
                                        class="px-6 py-4">
                                     </td>
-                                    <td class="px-6 py-4">
-                                       <button @click="deleteTask(task.id)"
+                                    <td class="px-6 py-4 flex items-center gap-2">
+                                       <button @click="setCurrentTask(task)"
+                                          class="font-medium text-green-500 underline ">Edit</a>
+                                          <button @click="deleteTask(task.id)"
                                           class="font-medium text-red-500 underline ">Delete</a>
                                     </td>
                                  </tr>

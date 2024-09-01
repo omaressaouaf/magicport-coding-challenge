@@ -8,6 +8,13 @@ Alpine.data("tasksComponent", () => ({
         status: null,
     },
 
+    setCurrentTask(task) {
+        this.currentTask = task;
+
+        this.form.name = this.currentTask.name;
+        this.form.description = this.currentTask.description;
+        this.form.status = this.currentTask.status;
+    },
     resetForm() {
         this.form = {
             name: null,
@@ -44,8 +51,22 @@ Alpine.data("tasksComponent", () => ({
 
         this.tasks.unshift(task);
     },
+    async updateTask() {
+        let response = await this.makeRequest(
+            "put",
+            `/tasks/${this.currentTask.id}`,
+            this.form
+        );
+
+        const task = await response.json();
+
+        this.tasks = this.tasks.map((loopTask) =>
+            loopTask.id === task.id ? task : loopTask
+        );
+    },
     async handleSubmit() {
         if (this.currentTask) {
+            this.updateTask();
         } else {
             this.createTask();
         }
