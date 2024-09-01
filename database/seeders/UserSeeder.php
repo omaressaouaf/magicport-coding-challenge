@@ -19,17 +19,17 @@ class UserSeeder extends Seeder
             'view project',
             'create task',
             'edit task',
-            'delete task'
+            'delete task',
         ];
 
         Permission::query()->upsert(
-            Arr::map($permissionsNames, fn(string $permissionName) => ['name' => $permissionName]),
+            Arr::map($permissionsNames, fn (string $permissionName) => ['name' => $permissionName]),
             'name'
         );
 
         $role = Role::query()->create(
             [
-                'name' => 'admin'
+                'name' => 'admin',
             ]
         );
 
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
                 'name' => 'Admin User',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
-                'email_verified_at' => now()
+                'email_verified_at' => now(),
             ]
         );
 

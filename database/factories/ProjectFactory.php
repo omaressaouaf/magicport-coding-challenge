@@ -18,7 +18,7 @@ class ProjectFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph()
+            'description' => $this->faker->paragraph(),
         ];
     }
 }

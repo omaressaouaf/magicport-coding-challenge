@@ -40,7 +40,7 @@ class EloquentTaskRepository implements TaskRepository
     {
         return $project
             ->tasks()
-            ->when($status, fn(Builder $query) => $query->where('status', $status))
+            ->when($status, fn (Builder $query) => $query->where('status', $status))
             ->get();
     }
 }

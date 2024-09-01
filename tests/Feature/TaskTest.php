@@ -48,7 +48,7 @@ class TaskTest extends TestCase
 
         $data = [
             'name' => 'first task',
-            'description' => 'first task description'
+            'description' => 'first task description',
         ];
 
         $response = $this->post(route('projects.tasks.store', ['project' => $project]), $data);
@@ -63,7 +63,7 @@ class TaskTest extends TestCase
 
         $data = [
             'name' => 'first task',
-            'description' => 'first task description'
+            'description' => 'first task description',
         ];
 
         $response = $this->put(route('tasks.update', ['task' => $task]), $data);
@@ -87,7 +87,7 @@ class TaskTest extends TestCase
         $task = Task::factory()->create(['status' => TaskStatus::TODO]);
 
         $data = [
-            'status' => TaskStatus::IN_PROGRESS->value
+            'status' => TaskStatus::IN_PROGRESS->value,
         ];
 
         $response = $this->patch(route('tasks.update-status', ['task' => $task]), $data);

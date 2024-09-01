@@ -28,7 +28,7 @@ class ProjectController extends Controller
         return view('project')->with(
             [
                 'project' => $project,
-                'tasks' => $taskRepository->get($project, TaskStatus::tryFrom(request()->get('status')))
+                'tasks' => $taskRepository->get($project, TaskStatus::tryFrom(request()->get('status'))),
             ]
         );
     }

@@ -10,7 +10,7 @@ class StoreUpdateTaskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:4', 'max:255'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
         ];
     }
 }

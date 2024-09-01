@@ -12,7 +12,7 @@ class EloquentProjectRepository implements ProjectRepository
     public function get(?string $name = null): Collection
     {
         return Project::query()
-            ->when($name, fn(Builder $query) => $query->where('name', 'LIKE', '%' . $name . '%'))
+            ->when($name, fn (Builder $query) => $query->where('name', 'LIKE', '%'.$name.'%'))
             ->get();
     }
 }

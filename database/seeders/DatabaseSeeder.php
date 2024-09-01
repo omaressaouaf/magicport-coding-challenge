@@ -9,10 +9,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $seeders = [
-            UserSeeder::class
+            UserSeeder::class,
         ];
 
-        if (!app()->environment('testing')) {
+        if (! app()->environment('testing')) {
             $seeders[] = ProjectSeeder::class;
         }
 

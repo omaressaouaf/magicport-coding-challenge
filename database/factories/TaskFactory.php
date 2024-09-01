@@ -18,7 +18,7 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         $statuses = array_map(
-            fn(TaskStatus $case) => $case->value,
+            fn (TaskStatus $case) => $case->value,
             TaskStatus::cases()
         );
 
@@ -26,7 +26,7 @@ class TaskFactory extends Factory
             'name' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'project_id' => ProjectFactory::new(),
-            'status' => $statuses[array_rand($statuses)]
+            'status' => $statuses[array_rand($statuses)],
         ];
     }
 }

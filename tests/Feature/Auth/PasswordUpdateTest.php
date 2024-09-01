@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class PasswordUpdateTest extends TestCase
 {
