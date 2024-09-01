@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $permissionsNames = [
             'list projects',
-            'view projects',
+            'view project',
             'create task',
             'edit task',
             'delete task'
