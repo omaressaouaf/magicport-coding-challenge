@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\TaskStatus;
 use App\Models\Project;
 use App\Models\Task;
 use App\Repositories\Contracts\TaskRepository;
@@ -24,19 +25,14 @@ class EloquentTaskRepository implements TaskRepository
         return $task->update($data) != 0;
     }
 
+    public function updateStatus(Task $task, TaskStatus $taskStatus): bool
+    {
+        return $task->update(['status' => $taskStatus]) != 0;
+    }
+
     public function delete(Task $task): bool
     {
         return $task->delete() != 0;
-    }
-
-    public function findById(int $id): ?Task
-    {
-        /**
-         * @var Task $task
-         */
-        $task = Task::query()->find($id);
-
-        return $task;
     }
 
     public function get(): Collection

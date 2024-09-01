@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('status')->default(TaskStatus::DONE->value);
+            $table->string('status')->default(TaskStatus::TODO->value);
             $table->foreignId('project_id')
                 ->constrained('projects')
                 ->onDelete('cascade')

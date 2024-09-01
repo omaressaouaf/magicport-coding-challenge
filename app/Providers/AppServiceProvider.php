@@ -17,8 +17,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->instance(ProjectRepository::class, EloquentProjectRepository::class);
-        $this->app->instance(TaskRepository::class, EloquentTaskRepository::class);
+        $this->app->instance(ProjectRepository::class, new EloquentProjectRepository());
+        $this->app->instance(TaskRepository::class, new EloquentTaskRepository());
     }
 
     public function boot(): void
