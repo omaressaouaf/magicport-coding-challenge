@@ -81,8 +81,10 @@
                                  {{ $project->updated_at->diffForHumans() }}
                               </td>
                               <td class="px-6 py-4">
-                                 <a href="{{ route('projects.show', ['project' => $project]) }}"
-                                    class="font-medium text-blue-600 underline">Show</a>
+                                 @can('has-permission', 'view project')
+                                    <a href="{{ route('projects.show', ['project' => $project]) }}"
+                                       class="font-medium text-blue-600 underline">Show</a>
+                                 @endcan
                               </td>
                            </tr>
                         @endforeach

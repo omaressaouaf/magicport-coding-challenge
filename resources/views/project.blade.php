@@ -37,7 +37,9 @@
 
    <div x-data="{ tasks: {{ $tasks }}, currentProject: {{ $project }} }">
       <div x-data="tasksComponent">
-         <div class="pb-6 mt-5">
+         <div
+            x-show="{{ Gate::allows('has-permission', 'create task') }} || {{ Gate::allows('has-permission', 'edit task') }} && currentTask"
+            class="pb-6 mt-5">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                   <div class="p-6 text-gray-900">
@@ -52,7 +54,7 @@
                               <option value>Choose status</option>
                               @foreach (TaskStatus::cases() as $case)
                                  <option value="{{ $case->value }}"
-                                    x-bind:selected="form.status === '{{$case->value}}'">
+                                    x-bind:selected="form.status === '{{ $case->value }}'">
                                     {{ strtoupper($case->value) }}
                                  </option>
                               @endforeach
@@ -85,7 +87,6 @@
                            x-te>
                         </button>
                      </form>
-
                   </div>
                </div>
             </div>
@@ -171,13 +172,17 @@
                                        class="px-6 py-4">
                                     </td>
                                     <td class="px-6 py-4 flex items-center gap-2">
-                                       <button @click="editCurrentTaskStatus(task)"
-                                          class="font-medium text-blue-500 underline">Change
-                                          Status</a>
+                                       @can('has-permission', 'edit task')
+                                          <button @click="editCurrentTaskStatus(task)"
+                                             class="font-medium text-blue-500 underline">Change
+                                             Status</button>
                                           <button @click="setCurrentTask(task)"
-                                             class="font-medium text-green-500 underline ">Edit</a>
-                                             <button @click="deleteTask(task.id)"
-                                                class="font-medium text-red-500 underline ">Delete</a>
+                                             class="font-medium text-green-500 underline ">Edit</button>
+                                       @endcan
+                                       @can('has-permission', 'delete task')
+                                          <button @click="deleteTask(task.id)"
+                                             class="font-medium text-red-500 underline ">Delete</button>
+                                       @endcan
                                     </td>
                                  </tr>
                               </template>
