@@ -23,13 +23,19 @@ class UserSeeder extends Seeder
         ];
 
         Permission::query()->upsert(
-            Arr::map($permissionsNames, fn (string $permissionName) => ['name' => $permissionName]),
+            Arr::map($permissionsNames, fn(string $permissionName) => ['name' => $permissionName]),
             'name'
         );
 
-        $role = Role::query()->create(
+        $adminRole = Role::query()->create(
             [
                 'name' => 'admin',
+            ]
+        );
+
+        $userRole = Role::query()->create(
+            [
+                'name' => 'user',
             ]
         );
 
@@ -47,8 +53,13 @@ class UserSeeder extends Seeder
          */
         $permissionService = app(PermissionService::class);
 
-        $permissionService->syncPermissionsToRole($role, $permissionsNames);
+        $permissionService->syncPermissionsToRole($adminRole, $permissionsNames);
 
-        $permissionService->syncRolesToUser($user, [$role->name]);
+        $permissionService->syncPermissionsToRole(
+            $userRole,
+            array_filter($permissionsNames, fn(string $permissionName) => $permissionName !== 'delete task')
+        );
+
+        $permissionService->syncRolesToUser($user, [$adminRole->name]);
     }
 }
