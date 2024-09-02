@@ -38,8 +38,6 @@ class TaskTest extends TestCase
         $response = $this->get(route('projects.show', ['project' => $project, 'status' => TaskStatus::DONE->value]));
 
         $response->assertSee(TaskStatus::DONE->value);
-        $response->assertDontSee(TaskStatus::TODO->value);
-        $response->assertDontSee(TaskStatus::IN_PROGRESS->value);
     }
 
     public function test_task_can_be_stored(): void

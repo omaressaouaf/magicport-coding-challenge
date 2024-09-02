@@ -27,13 +27,33 @@ services:
         ports:
             - "4306:3306"
         volumes:
-            - "./mysql:/var/lib/mysql"
+            - "./mysql/dev:/var/lib/mysql"
         environment:
             MYSQL_DATABASE: magicport_coding_challenge
             MYSQL_USER: admin
             MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: password
             SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - magicport-coding-challenge
+
+    mysql_testing:
+        platform: linux/x86_64
+        image: "mysql:5.7.22"
+        container_name: mysql_testing
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "4307:3306"
+        volumes:
+            - "./mysql/testing:/var/lib/mysql"
+        environment:
+            MYSQL_DATABASE: magicport_coding_challenge_testing
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
+            SERVICE_TAGS: testing
             SERVICE_NAME: mysql
         networks:
             - magicport-coding-challenge
