@@ -22,6 +22,9 @@ The codebase uses advanced code architecture to achive the wanted result such as
 - Clone the project with `git clone` and navigate to the project directory
 - Run the setup script using `chmod +x setup.sh && ./setup.sh`
 - Launch the app in `http://localhost:8088`
+- Login with an admin user using the following credentials :
+    - Email: `admin@gmail.com`
+    - Password: `password`
 - **Optional step** : You can ensure that the app is functional by running the test suits `docker-compose run --rm artisan test`
 
 ---
